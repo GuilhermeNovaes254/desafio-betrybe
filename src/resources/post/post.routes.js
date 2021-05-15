@@ -7,7 +7,7 @@ const auth = require('../../middlewares/auth');
 
 router.get('/', [auth], postController.getAll);
 router.get('/:id', [auth], postController.getById);
-router.post('/', [auth], postController.create);
+router.post('/', postController.create);
 router.put('/:id', [auth], postController.update);
 router.get('/search', [auth], postController.search);
 router.delete('/:id', [auth], postController.delete);
