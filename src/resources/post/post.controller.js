@@ -29,12 +29,8 @@ exports.create = async (req, res) => {
         content
     } = req.body;
 
-    if (!title) return res.status(HttpStatus.BAD_REQUEST).send({
-        "message": "\"title\" is required"
-    });
-    if (!content) return res.status(HttpStatus.BAD_REQUEST).send({
-        "message": "\"content\" is required"
-    });
+    if (!title) return res.status(HttpStatus.BAD_REQUEST).send({"message": "\"title\" is required"});
+    if (!content) return res.status(HttpStatus.BAD_REQUEST).send({"message": "\"content\" is required"});
 
     const id = idFromHeader(req);
     const new_element = {
@@ -49,17 +45,11 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     let id_req = idFromHeader(req);
-    let {
-        id
-    } = req.params
-    let {
-        title,
-        content
-    } = req.body;
+    let {id} = req.params
+    let {title,content} = req.body;
 
-    let new_data = {
-        "userId": id_req
-    }
+    let new_data = {"userId": id_req}
+    
     if (title != undefined) new_data.title = title;
     if (content != undefined) new_data.content = content;
 
@@ -87,18 +77,12 @@ exports.delete = async (req, res) => {
 
     const post = await postService.getById(id);
 
-    if (!post) return res.status(HttpStatus.BAD_REQUEST).send({
-        "message": "Post não existe"
-    });
+    if (!post) return res.status(HttpStatus.BAD_REQUEST).send({"message": "Post não existe"});
     console.log(post.userId, id_req);
-    if (post.userId != id_req) return res.status(HttpStatus.BAD_REQUEST).send({
-        "message": "Usuário não autor do post"
-    });
+    if (post.userId != id_req) return res.status(HttpStatus.BAD_REQUEST).send({"message": "Usuário não autor do post"});
 
     post.remove();
-    return res.status(HttpStatus.NO_CONTENT).send({
-        "message": "Usuário deletado"
-    });
+    return res.status(HttpStatus.NO_CONTENT).send({"message": "Usuário deletado"});
 };
 
 const idFromHeader = (req) => {

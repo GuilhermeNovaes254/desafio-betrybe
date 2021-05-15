@@ -6,7 +6,7 @@ exports.getAll = async () => {
 
     try {
 
-        const posts = await Post.find().populate('user');
+        const posts = await Post.find().populate('userId').select('-__v');
         return posts
     } catch (error) {
         throw new Error(error)
@@ -17,7 +17,7 @@ exports.getAll = async () => {
 exports.getById = async (id) => {
 
     try {
-        const post = await Post.findById(id).populate('User');
+        const post = await Post.findById(id).populate('userId').select('-__v');
         return post
     } catch (error) {
         throw new Error(error)
@@ -43,7 +43,7 @@ exports.findAndUpdate = async (id,new_data) => {
 
     try {        
         new_data.updated = new Date();
-        const new_post = await Post.findByIdAndUpdate(id, new_data, { new: false });
+        const new_post = await Post.findByIdAndUpdate(id, new_data, { new: false }).populate('userId').select('-__v');
 
         return new_post
     } catch (error) {
@@ -57,7 +57,7 @@ exports.search = async (q) => {
 
         const criteria = json(q)
         if(!criteria) return false;
-        let found = await Post.find(criteria);
+        let found = await Post.find(criteria).populate('userId').select('-__v');
         
         return found
     } catch (error) {

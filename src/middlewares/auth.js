@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
         if(!token) return res.status(HttpStatus.UNAUTHORIZED).send({"message":"Token não encontrado"})
 
         const decoded_payload = await jwt.verify(token, process.env.JWT_PRIVATE_KEY);
-        console.log(decoded_payload);
+        // console.log(decoded_payload);
     
         next();
     

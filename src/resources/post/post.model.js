@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { User } = require('../user/user.model');
 
 const postSchema = new mongoose.Schema({
 
@@ -11,7 +12,7 @@ const postSchema = new mongoose.Schema({
         required: true
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.ObjectId, 
         ref: 'User',
         required: true
     },
