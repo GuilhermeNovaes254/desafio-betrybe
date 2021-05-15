@@ -20,8 +20,8 @@ exports.signup = async (req, res) => {
 
     if(!user) return res.status(HttpStatus.BAD_REQUEST).send({"message":"Campo inválidos"});
     
-    console.log(user)
-    const isValid = bcrypt.compare(password, user.password)
+    const isValid = await bcrypt.compare(password, user.password)
+
     if(!isValid) return res.status(HttpStatus.BAD_REQUEST).send({"message":"Campo inválidos"});
     
     const token = user.generateUserToken();

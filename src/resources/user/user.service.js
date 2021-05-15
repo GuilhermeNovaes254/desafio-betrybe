@@ -1,7 +1,7 @@
 const { User } = require('./user.model');
 const bcrypt = require('bcrypt');
 require('dotenv').config()
-const saltRounds = process.env.SALT_ROUNDS;
+const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 require('dotenv').config()
 
@@ -40,15 +40,14 @@ exports.find_by_email = async (email) => {
 exports.create_user = async (data) => {
 
     try {
-            await bcrypt.genSalt(saltRounds, function(err, salt) {
-                bcrypt.hash(data.password, salt, function(err, hash) {
-                    data.password = hash;
-                });
-            });
-
+            
+            const salt = await bcrypt.genSalt(saltRounds)
+            const hashed_password = await bcrypt.hash(data.password, salt)
+            data.password = hashed_password
+            
             const new_user = new User(data)
             await new_user.save()
-    
+
             return new_user
         } catch (error) {
             throw new Error(error)
