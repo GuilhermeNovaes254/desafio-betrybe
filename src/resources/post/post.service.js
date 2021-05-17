@@ -1,15 +1,15 @@
 const { Post } = require('./post.model');
 const { User } = require('../user/user.model');
-require('dotenv').config()
+require('dotenv').config();
 
 exports.getAll = async () => {
 
     try {
 
         const posts = await Post.find().populate('userId').select('-__v');
-        return posts
+        return posts;
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
 
 };
@@ -18,9 +18,9 @@ exports.getById = async (id) => {
 
     try {
         const post = await Post.findById(id).populate('userId').select('-__v');
-        return post
+        return post;
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
 
 };
@@ -28,13 +28,13 @@ exports.getById = async (id) => {
 exports.create = async (data) => {
 
     try {
-        const new_post = new Post(data)
+        const new_post = new Post(data);
         console.log(new_post);
-        await new_post.save()
+        await new_post.save();
 
-        return new_post
+        return new_post;
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
     
 };
@@ -45,9 +45,9 @@ exports.findAndUpdate = async (id,new_data) => {
         new_data.updated = new Date();
         const new_post = await Post.findByIdAndUpdate(id, new_data, { new: false }).populate('userId').select('-__v');
 
-        return new_post
+        return new_post;
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
     
 };
@@ -55,13 +55,13 @@ exports.findAndUpdate = async (id,new_data) => {
 exports.search = async (q) => {
     try {
 
-        const criteria = json(q)
+        const criteria = json(q);
         if(!criteria) return false;
         let found = await Post.find(criteria).populate('userId').select('-__v');
         
-        return found
+        return found;
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
 };
 
@@ -71,4 +71,4 @@ const json = (function (raw) {
     } catch (err) {
         return false;
     }
-})
+});

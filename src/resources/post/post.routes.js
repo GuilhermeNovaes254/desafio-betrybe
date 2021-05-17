@@ -12,4 +12,4 @@ router.get('/:id', [auth], postController.getById);
 router.put('/:id', [auth], postController.update);
 router.delete('/:id', [auth], postController.delete);
 
-module.exports = router
+module.exports = router;

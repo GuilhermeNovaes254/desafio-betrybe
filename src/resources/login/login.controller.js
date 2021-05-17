@@ -18,14 +18,14 @@ exports.signup = async (req, res) => {
     
     const user = await userService.find_by_email(email);
 
-    if(!user) return res.status(HttpStatus.BAD_REQUEST).send({"message":"Campo inválidos"});
+    if(!user) return res.status(HttpStatus.BAD_REQUEST).send({"message":"Campo inválido"});
     
-    const isValid = await bcrypt.compare(password, user.password)
+    const isValid = await bcrypt.compare(password, user.password);
 
-    if(!isValid) return res.status(HttpStatus.BAD_REQUEST).send({"message":"Campo inválidos"});
+    if(!isValid) return res.status(HttpStatus.BAD_REQUEST).send({"message":"Campo inválido"});
     
     const token = user.generateUserToken();
 
     res.status(HttpStatus.OK).send({"token": token});
 
-}
+};

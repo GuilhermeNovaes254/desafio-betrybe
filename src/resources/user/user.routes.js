@@ -9,4 +9,4 @@ router.get('/:id', [auth], userController.getById);
 router.delete('/me', [auth], userController.delete);
 router.post('/', userController.create);
 
-module.exports = router
+module.exports = router;
